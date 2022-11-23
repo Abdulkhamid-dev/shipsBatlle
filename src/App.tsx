@@ -1,26 +1,52 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+/* eslint-disable react-hooks/rules-of-hooks */
+import React, { Component } from "react";
+import "./App.css";
+import { useAppSelector } from "./redux/hooks";
+import { StyledStart } from "./styles/index";
+import Start from "./views/Start";
+import { connect } from "react-redux";
+import { IGameState } from "./redux/stage/stage";
+import { RootState } from "./redux/store";
+import Gaming from "./views/Gaming/Gaming";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+interface AppComp {
+  cycle: string;
 }
+class App extends Component<AppComp> {
+  constructor(props: AppComp) {
+    super(props);
+    this.state = {
+      cycle: "",
+    };
+  }
+  render() {
+    console.log(this.props.cycle);
+    this.componentDidMount = () => {
+      this.setState({ cycle: this.props.cycle });
+    };
+    return (
+      <StyledStart>
+        <div>
+          <video autoPlay muted loop className="myVideo">
+            <source
+              src={require("./assets/video/ships-video.mp4")}
+              type="video/mp4"
+            />
+          </video>
+          {this.props.cycle === "start" ? (
+            <Start />
+          ) : this.props.cycle === "pending" ? (
+            <Gaming />
+          ) : (
+            <h1>End</h1>
+          )}
+        </div>
+      </StyledStart>
+    );
+  }
+}
+const mapStateToProps = (state: RootState) => ({
+  cycle: state.game.gameStage,
+});
 
-export default App;
+export default connect(mapStateToProps)(App);
