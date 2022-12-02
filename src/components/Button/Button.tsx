@@ -1,14 +1,20 @@
 import React, { Component } from "react";
+import { StyledButton } from "./Button.style";
 
 type BtnProps = {
   btnLabel: string;
-  btnClck: any;
+  btnClck: () => void;
+  btnDis: boolean;
 };
-export default class Button extends Component<BtnProps> {
+export default class CustomButton extends Component<BtnProps> {
   constructor(props: BtnProps) {
     super(props);
   }
   render() {
-    return <button onClick={this.props.btnClck}>{this.props.btnLabel}</button>;
+    return (
+      <StyledButton onClick={this.props.btnClck} disabled={this.props.btnDis}>
+        {this.props.btnLabel}
+      </StyledButton>
+    );
   }
 }

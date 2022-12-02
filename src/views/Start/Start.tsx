@@ -1,21 +1,25 @@
 import { Component } from "react";
-import Button from "../components/Button/Button";
-import { RootState } from "../redux/store";
+import CustomButton from "../../components/Button/Button";
+import { RootState } from "../../redux/store";
 import { connect } from "react-redux";
-import { startGame } from "../redux/stage/stage";
+import { updateGame } from "../../redux/stage/stage";
 import { Dispatch } from "redux";
+import { StyledStart } from "./Start.style";
 
 class Start extends Component<any> {
   render() {
     return (
-      <>
+      <StyledStart>
         <h1>WELCOM TO SHIPS BATTLE!</h1>
 
-        <Button
+        <CustomButton
+          btnDis={false}
           btnLabel="Start game"
-          btnClck={() => this.props.start()}
+          btnClck={() =>
+            this.props.start({ gameStage: "setting", currentPlayer: 1 })
+          }
         />
-      </>
+      </StyledStart>
     );
   }
 }
@@ -26,7 +30,7 @@ const mapStateToProps = (state: RootState) => ({
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    start: () => dispatch(startGame()),
+    start: (arg: any) => dispatch(updateGame(arg)),
   };
 };
 

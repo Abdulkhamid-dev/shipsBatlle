@@ -3,12 +3,30 @@ import { StyledSquart } from "./Squart.style";
 
 type SquartProps = {
   callBack: Function;
+  isHitted: boolean;
+  isSelected: boolean;
+  isRightHitted: boolean;
 };
 export class Squart extends Component<SquartProps> {
+  constructor(props: SquartProps) {
+    super(props);
+    this.state = {};
+  }
   render() {
-    const {callBack} = this.props
+    const { callBack, isHitted, isSelected, isRightHitted } = this.props;
     return (
-      <StyledSquart onClick={() => callBack()}></StyledSquart>
+      <StyledSquart
+        bgColor={
+          isRightHitted
+            ? "green"
+            : isHitted
+            ? "red"
+            : isSelected
+            ? "grey"
+            : "#fff"
+        }
+        onClick={() => callBack()}
+      ></StyledSquart>
     );
   }
 }

@@ -8,6 +8,11 @@ export const StyledSquart = styled.div`
   font-size: 30px;
   line-height: 50px;
   text-align: center;
-  background-color: red;
+  background-color: ${(props: { bgColor: string }) => props.bgColor};
   float: left;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  &:hover {
+    background-color: grey;
+  }
 `;

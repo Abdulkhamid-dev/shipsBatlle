@@ -1,13 +1,15 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { Component } from "react";
 import "./App.css";
+import "antd/dist/reset.css";
 import { useAppSelector } from "./redux/hooks";
 import { StyledStart } from "./styles/index";
-import Start from "./views/Start";
+import Start from "./views/Start/Start";
 import { connect } from "react-redux";
 import { IGameState } from "./redux/stage/stage";
 import { RootState } from "./redux/store";
 import Gaming from "./views/Gaming/Gaming";
+import SetShips from "./views/SetShips/SetShips";
 
 interface AppComp {
   cycle: string;
@@ -37,6 +39,8 @@ class App extends Component<AppComp> {
             <Start />
           ) : this.props.cycle === "pending" ? (
             <Gaming />
+          ) : this.props.cycle === "setting" ? (
+            <SetShips />
           ) : (
             <h1>End</h1>
           )}
